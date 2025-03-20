@@ -24,7 +24,7 @@ const TimeZoneConverter = () => {
         'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/Mawson', 'Antarctica/McMurdo',
         'Antarctica/Rothera', 'Antarctica/Syowa', 'Antarctica/Vostok',
         'Asia/Almaty', 'Asia/Amman', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok',
-        'Asia/Beirut', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Doha', 'Asia/Dubai', 'Asia/Gaza', 'Asia/Hebron', 'Asia/Hong_Kong', 'Asia/Irkutsk',
+        'Asia/Beirut', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Dubai', 'Asia/Gaza', 'Asia/Hebron', 'Asia/Hong_Kong', 'Asia/Irkutsk',
         'Asia/Jakarta', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Karachi', 'Asia/Kathmandu',
         'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuwait',
         'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Qatar', 'Asia/Riyadh', 'Asia/Seoul', 'Asia/Shanghai',
