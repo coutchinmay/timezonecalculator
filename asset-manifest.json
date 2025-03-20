@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/timezonecalculator/static/css/main.e8d03760.css",
+    "main.js": "/timezonecalculator/static/js/main.5e80dbe6.js",
+    "static/js/453.4de06fec.chunk.js": "/timezonecalculator/static/js/453.4de06fec.chunk.js",
+    "index.html": "/timezonecalculator/index.html",
+    "main.e8d03760.css.map": "/timezonecalculator/static/css/main.e8d03760.css.map",
+    "main.5e80dbe6.js.map": "/timezonecalculator/static/js/main.5e80dbe6.js.map",
+    "453.4de06fec.chunk.js.map": "/timezonecalculator/static/js/453.4de06fec.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e8d03760.css",
+    "static/js/main.5e80dbe6.js"
+  ]
+}
