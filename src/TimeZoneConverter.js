@@ -11,9 +11,7 @@ const TimeZoneConverter = () => {
   const [timeZones, setTimeZones] = useState([]);
   const [groupedTimeZones, setGroupedTimeZones] = useState({});
 
-  // Get all available time zones and group them by region
   useEffect(() => {
-    // This is a list of all IANA time zones
     const allTimeZones = [
         'Africa/Abidjan', 'Africa/Accra', 'Africa/Algiers', 'Africa/Bissau', 'Africa/Cairo',
         'Africa/Casablanca', 'Africa/Ceuta', 'Africa/Johannesburg', 'Africa/Lagos',
@@ -25,13 +23,13 @@ const TimeZoneConverter = () => {
         'America/Sao_Paulo', 'America/St_Johns', 'America/Toronto', 'America/Vancouver',
         'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/Mawson', 'Antarctica/McMurdo',
         'Antarctica/Rothera', 'Antarctica/Syowa', 'Antarctica/Vostok',
-        'Asia/Almaty', 'Asia/Amman', 'Asia/Baghdad', 'Asia/Baku', 'Asia/Bangkok',
-        'Asia/Beirut', 'Asia/Dhaka', 'Asia/Dubai', 'Asia/Hong_Kong', 'Asia/Irkutsk',
+        'Asia/Almaty', 'Asia/Amman', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok',
+        'Asia/Beirut', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Doha', 'Asia/Dubai', 'Asia/Gaza', 'Asia/Hebron', 'Asia/Hong_Kong', 'Asia/Irkutsk',
         'Asia/Jakarta', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Karachi', 'Asia/Kathmandu',
         'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuwait',
-        'Asia/Manila', 'Asia/Muscat', 'Asia/Riyadh', 'Asia/Seoul', 'Asia/Shanghai',
+        'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Qatar', 'Asia/Riyadh', 'Asia/Seoul', 'Asia/Shanghai',
         'Asia/Singapore', 'Asia/Taipei', 'Asia/Tehran', 'Asia/Tokyo', 'Asia/Vladivostok',
-        'Asia/Yakutsk', 'Asia/Yekaterinburg',
+        'Asia/Yakutsk', 'Asia/Yekaterinburg', 'Asia/Yerevan',
         'Atlantic/Azores', 'Atlantic/Cape_Verde', 'Atlantic/Reykjavik',
         'Australia/Adelaide', 'Australia/Brisbane', 'Australia/Darwin', 'Australia/Hobart',
         'Australia/Melbourne', 'Australia/Perth', 'Australia/Sydney',
@@ -49,7 +47,6 @@ const TimeZoneConverter = () => {
 
     setTimeZones(allTimeZones);
 
-    // Group time zones by region for better UX
     const grouped = allTimeZones.reduce((acc, tz) => {
       const region = tz.split('/')[0];
       if (!acc[region]) {
@@ -62,7 +59,6 @@ const TimeZoneConverter = () => {
     setGroupedTimeZones(grouped);
   }, []);
 
-  // Convert the time when any input changes
   useEffect(() => {
     if (sourceTime && sourceDate && sourceCountry && targetCountry) {
       convertTime();
@@ -71,29 +67,23 @@ const TimeZoneConverter = () => {
 
   const convertTime = () => {
     try {
-      // Parse the input time and date
       const [hours, minutes] = sourceTime.split(':').map(Number);
       const [year, month, day] = sourceDate.split('-').map(Number);
       
-      // Create date objects for the source date/time
       const sourceDateObj = new Date(year, month - 1, day, hours, minutes, 0);
       
-      // Format the date for both time zones
       const sourceDateTime = sourceDateObj.toLocaleString('en-US', { timeZone: sourceCountry });
       const targetDateTime = sourceDateObj.toLocaleString('en-US', { timeZone: targetCountry });
       
-      // Extract the date and time for source and target
       const sourceDateTimeObj = new Date(sourceDateTime);
       const targetDateTimeObj = new Date(targetDateTime);
       
-      // Format the result time
       const formattedTime = targetDateTimeObj.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true
       });
       
-      // Format the result date
       const formattedDate = targetDateTimeObj.toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
@@ -118,7 +108,6 @@ const TimeZoneConverter = () => {
     setSourceDate(e.target.value);
   };
 
-  // Get a user-friendly name from the time zone ID
   const getLocationName = (timeZone) => {
     return timeZone.split('/').pop().replace(/_/g, ' ');
   };
