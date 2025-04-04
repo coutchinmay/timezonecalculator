@@ -67,24 +67,34 @@ const TimeZoneConverter = () => {
 
   const convertTime = () => {
     try {
+      // Parse the input time and date
       const [hours, minutes] = sourceTime.split(':').map(Number);
       const [year, month, day] = sourceDate.split('-').map(Number);
       
-      const sourceDateObj = new Date(year, month - 1, day, hours, minutes, 0);
+      // Create a date string in ISO format
+      const dateString = `${sourceDate}T${sourceTime}:00`;
       
-      const sourceDateTime = sourceDateObj.toLocaleString('en-US', { timeZone: sourceCountry });
-      const targetDateTime = sourceDateObj.toLocaleString('en-US', { timeZone: targetCountry });
+      // Get the time zone offsets
+      const sourceOffset = getTimezoneOffset(sourceCountry, new Date(dateString));
+      const targetOffset = getTimezoneOffset(targetCountry, new Date(dateString));
       
-      const sourceDateTimeObj = new Date(sourceDateTime);
-      const targetDateTimeObj = new Date(targetDateTime);
+      // Calculate the time difference between the two time zones
+      const offsetDiff = targetOffset - sourceOffset;
       
-      const formattedTime = targetDateTimeObj.toLocaleTimeString('en-US', {
+      // Create a date object for the source time
+      const sourceDateObj = new Date(year, month - 1, day, hours, minutes);
+      
+      // Apply the offset difference to get the target time
+      const targetDateObj = new Date(sourceDateObj.getTime() + offsetDiff);
+      
+      // Format the converted time and date
+      const formattedTime = targetDateObj.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true
       });
       
-      const formattedDate = targetDateTimeObj.toLocaleDateString('en-US', {
+      const formattedDate = targetDateObj.toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
@@ -98,6 +108,13 @@ const TimeZoneConverter = () => {
       setConvertedTime('Invalid format');
       setConvertedDate('');
     }
+  };
+
+  // Helper function to get timezone offset in milliseconds
+  const getTimezoneOffset = (timeZone, date) => {
+    const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
+    const tzDate = new Date(date.toLocaleString('en-US', { timeZone }));
+    return utcDate.getTime() - tzDate.getTime();
   };
 
   const handleTimeChange = (e) => {
@@ -165,6 +182,7 @@ const TimeZoneConverter = () => {
             onChange={(e) => setTargetCountry(e.target.value)}
             className="timezone-select"
           >
+            <option value="">Select a timezone</option>
             {Object.keys(groupedTimeZones).sort().map(region => (
               <optgroup key={region} label={region}>
                 {groupedTimeZones[region].sort().map(tz => (
